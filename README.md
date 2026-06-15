@@ -9,15 +9,18 @@
 - 首页导航：`https://cnkay-a11y.github.io/brand-sop/`
 - 品牌全案 SOP：`https://cnkay-a11y.github.io/brand-sop/decks/brand-strategy-sop.html`
 - 品牌视觉搭建 / 升级 SOP：`https://cnkay-a11y.github.io/brand-sop/decks/brand-visual-sop.html`
+- 品牌视觉基础建设 · 项目报价单：`https://cnkay-a11y.github.io/brand-sop/quotes/brand-visual-foundation-quote.html`
 
 ## 目录结构
 
 ```
 brand-sop/
 ├── index.html                      # 导航首页
-└── decks/
-    ├── brand-strategy-sop.html     # 品牌全案 SOP
-    └── brand-visual-sop.html       # 品牌视觉搭建 / 升级 SOP
+├── decks/
+│   ├── brand-strategy-sop.html     # 品牌全案 SOP
+│   └── brand-visual-sop.html       # 品牌视觉搭建 / 升级 SOP
+└── quotes/
+    └── brand-visual-foundation-quote.html   # 品牌视觉基础建设 · 项目报价单
 ```
 
 ## 开启 GitHub Pages

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>品牌视觉基础建设 · 项目报价单</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --lime: #B4D719;
+    --ink: #1E2F2B;
+    --line: rgba(255,255,255,0.12);
+    --glass: rgba(255,255,255,0.06);
+    --txt: rgba(255,255,255,0.92);
+    --muted: rgba(255,255,255,0.58);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, sans-serif;
+    color: var(--txt);
+    line-height: 1.6;
+    background:
+      radial-gradient(circle at 12% 10%, rgba(180,215,25,0.18), transparent 42%),
+      radial-gradient(circle at 88% 85%, rgba(70,120,255,0.20), transparent 48%),
+      linear-gradient(135deg, #0f1c1a 0%, #1E2F2B 55%, #14201d 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 56px 20px 90px;
+  }
+  .page { max-width: 920px; margin: 0 auto; }
+
+  /* header */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  .back {
+    text-decoration: none; color: var(--muted); font-size: 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--glass);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    transition: color .2s, border-color .2s;
+  }
+  .back:hover { color: var(--lime); border-color: rgba(180,215,25,0.45); }
+  .confid { font-size: 12px; letter-spacing: 1px; color: var(--muted); }
+
+  .hero {
+    border-radius: 26px; padding: 44px 40px;
+    background: var(--glass); border: 1px solid var(--line);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+    margin-bottom: 30px;
+  }
+  .hero .badge {
+    display: inline-block; font-size: 12px; letter-spacing: 2px;
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
+    background: rgba(180,215,25,0.16); border: 1px solid rgba(180,215,25,0.38);
+    color: var(--lime);
+  }
+  .hero h1 { font-size: 36px; font-weight: 700; letter-spacing: 0.5px; }
+  .hero .en { color: var(--muted); font-size: 15px; margin-top: 8px; letter-spacing: 1px; }
+  .meta {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 18px; margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line);
+  }
+  .meta .k { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .meta .v { font-size: 15px; font-weight: 600; }
+  .meta .v.lime { color: var(--lime); }
+
+  /* sections */
+  section {
+    border-radius: 24px; padding: 34px 34px; margin-bottom: 26px;
+    background: var(--glass); border: 1px solid var(--line);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.28);
+  }
+  .sec-h { display: flex; align-items: baseline; gap: 12px; margin-bottom: 22px; }
+  .sec-h .no { color: var(--lime); font-size: 15px; font-weight: 700; }
+  .sec-h h2 { font-size: 22px; font-weight: 700; }
+
+  /* table */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 14px 12px; vertical-align: top; }
+  thead th {
+    font-size: 12px; letter-spacing: 1px; color: var(--muted);
+    border-bottom: 1px solid var(--line); font-weight: 600;
+  }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.07); }
+  tbody tr:last-child { border-bottom: none; }
+  td .desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .price { color: var(--lime); font-weight: 700; white-space: nowrap; }
+  .seq { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .total-row td {
+    border-top: 1px solid var(--line); padding-top: 18px;
+    font-size: 16px; font-weight: 700;
+  }
+  .total-row .price { font-size: 20px; }
+
+  .note {
+    margin-top: 18px; font-size: 13px; color: var(--muted);
+    padding: 14px 16px; border-radius: 14px;
+    background: rgba(180,215,25,0.07); border: 1px solid rgba(180,215,25,0.18);
+  }
+
+  /* detail list */
+  .block { margin-bottom: 26px; }
+  .block:last-child { margin-bottom: 0; }
+  .block-h {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
+  }
+  .block-h h3 { font-size: 16px; font-weight: 700; }
+  ul.clean { list-style: none; }
+  ul.clean li {
+    position: relative; padding-left: 20px; margin-bottom: 8px;
+    font-size: 14px; color: var(--txt);
+  }
+  ul.clean li::before {
+    content: ""; position: absolute; left: 4px; top: 9px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--lime);
+  }
+  ul.clean li .sub { color: var(--muted); }
+
+  /* tags / boundary */
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag {
+    font-size: 13px; padding: 8px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .boundary li::before { background: rgba(255,120,120,0.85); }
+
+  /* pay */
+  .pay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
+  .pay-card {
+    border-radius: 18px; padding: 22px; border: 1px solid var(--line);
+    background: rgba(255,255,255,0.05);
+  }
+  .pay-card .stage { font-size: 13px; color: var(--muted); }
+  .pay-card .pct { font-size: 30px; font-weight: 700; color: var(--lime); margin: 6px 0; }
+  .pay-card .amt { font-size: 16px; font-weight: 600; }
+  .pay-card .trig { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+  .foot { text-align: center; color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 40px; }
+
+  @media (max-width: 560px) {
+    .hero h1 { font-size: 28px; }
+    section, .hero { padding: 26px 20px; }
+    td, th { padding: 10px 6px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <a class="back" href="../index.html">← 返回流程库</a>
+      <span class="confid">机密文件 · 仅限客户查阅</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <span class="badge">PROJECT QUOTATION</span>
+      <h1>品牌视觉基础建设 · 项目报价单</h1>
+      <div class="en">Brand Visual Foundation</div>
+      <div class="meta">
+        <div><div class="k">项目名称</div><div class="v">品牌视觉基础建设（0→1 / 品牌升级）</div></div>
+        <div><div class="k">项目周期</div><div class="v">约 4 周（视反馈效率而定）</div></div>
+        <div><div class="k">报价日期</div><div class="v">2025 年 7 月</div></div>
+        <div><div class="k">计价方式</div><div class="v">项目打包价（含人天成本核算）</div></div>
+        <div><div class="k">项目合计（含税）</div><div class="v lime">¥30,000</div></div>
+      </div>
+    </div>
+
+    <!-- 一、费用总览 -->
+    <section>
+      <div class="sec-h"><span class="no">一</span><h2>费用总览</h2></div>
+      <table>
+        <thead>
+          <tr><th style="width:48px">序号</th><th>项目模块</th><th>具体说明</th><th style="text-align:right">费用 (RMB)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="seq">01</td>
+            <td>Logo 设计</td>
+            <td>品牌标志主创及规范<div class="desc">含草图、正稿、标准制图、反白稿、色彩定义</div></td>
+            <td class="price" style="text-align:right">¥8,000</td>
+          </tr>
+          <tr>
+            <td class="seq">02</td>
+            <td>品牌视觉手册<div class="desc">基础版</div></td>
+            <td>VI 基础规范 + 手册排版，输出 PDF 版品牌视觉指导书<div class="desc">规定 Logo、色彩、字体、辅助图形及基础应用规范</div></td>
+            <td class="price" style="text-align:right">¥7,000</td>
+          </tr>
+          <tr>
+            <td class="seq">03</td>
+            <td>基础物料应用</td>
+            <td>10 款以内常用落地物料设计<div class="desc">名片、信纸、手提袋、宣传单、PPT 模板等</div></td>
+            <td class="price" style="text-align:right">¥12,000</td>
+          </tr>
+          <tr>
+            <td class="seq">04</td>
+            <td>项目管理 & 沟通</td>
+            <td>全程对接、修改统筹、文件整理交付<div class="desc">使用说明与答疑</div></td>
+            <td class="price" style="text-align:right">¥3,000</td>
+          </tr>
+          <tr class="total-row">
+            <td></td><td>项目合计（含税）</td><td></td>
+            <td class="price" style="text-align:right">¥30,000</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note">本报价为项目打包价，包含 3 次以内常规修改，超出按实际工时另行商议。</div>
+    </section>
+
+    <!-- 二、人天拆解明细 -->
+    <section>
+      <div class="sec-h"><span class="no">二</span><h2>人天拆解明细</h2></div>
+      <table>
+        <thead>
+          <tr><th>阶段</th><th style="width:90px">人天</th><th>工作内容说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>品牌标志设计</td><td class="price">6 人天</td><td>品牌风格定位、草图构思、主标设计、标准制图、配色规范、反白 / 单色稿</td></tr>
+          <tr><td>品牌视觉手册（基础版）</td><td class="price">4.5 人天</td><td>标志规范、标准字、色彩体系、辅助图形、图片风格指引、手册排版</td></tr>
+          <tr><td>基础物料应用（≤10 款）</td><td class="price">7 人天</td><td>从名片 / 信纸 / 手提袋 / 宣传单 / PPT 等常用物料中任选，完成设计、调优、输出印刷文件</td></tr>
+          <tr><td>项目管理与交付</td><td class="price">5 人天</td><td>需求对接、进度管理、修改统筹、文件整理打包、使用说明与答疑</td></tr>
+          <tr><td>预留缓冲</td><td class="price">2.5 人天</td><td>临时调整、紧急修改、沟通与等待反馈的时间成本</td></tr>
+          <tr class="total-row"><td>合计</td><td class="price">25 人天</td><td><span class="price">¥30,000</span>（含税）</td></tr>
+        </tbody>
+      </table>
+      <div class="note">计价说明：1 人天 = 8 小时有效设计工时，不含等待反馈时间。</div>
+    </section>
+
+    <!-- 三、服务细则与交付标准 -->
+    <section>
+      <div class="sec-h"><span class="no">三</span><h2>服务细则与交付标准</h2></div>
+
+      <div class="block">
+        <div class="block-h"><h3>01　Logo 设计</h3><span class="price">¥8,000</span></div>
+        <ul class="clean">
+          <li>调研与分析：了解行业属性、竞品风格及品牌初步定位</li>
+          <li>构思与草图：提供 2-3 个不同方向的创意草图供选择</li>
+          <li>正稿设计：提供 1 个主推方案 + 2 个备选方案（彩色稿）</li>
+          <li>规范输出：标志标准化制图（网格系统）、最小使用空间、安全间距</li>
+          <li>色彩定义：确定主色、辅助色（提供 RGB / CMYK / HEX 色值）</li>
+          <li>特殊版本：提供反白稿、黑稿（单色稿），确保在不同背景下的可用性</li>
+          <li>修改次数：包含 3 次以内的细节修改，超出按实际工作量协商</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-h"><h3>02　品牌视觉手册 · 基础版</h3><span class="price">¥7,000</span></div>
+        <ul class="clean">
+          <li>基础规范页：Logo 的组合规范、禁用规范</li>
+          <li>标准字规范：中英文品牌专用字体及使用场景</li>
+          <li>色彩系统：主色、辅助色、渐变使用规范及搭配比例</li>
+          <li>辅助图形：设计 1 套简单、可延展的品牌辅助底纹或图形</li>
+          <li>视觉风格指引：品牌图片拍摄风格参考（Mood Board）或插画风格指引</li>
+          <li>手册排版：将上述规范排版成册（电子版 PDF），逻辑清晰，方便企业后续自行制作</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-h"><h3>03　基础物料应用（限 10 款）</h3><span class="price">¥12,000</span></div>
+        <div class="desc" style="color:var(--muted);font-size:13px;margin-bottom:12px">可选物料范围（任选 ≤10 款）：</div>
+        <div class="tags">
+          <span class="tag">名片（双面 90×54mm）</span>
+          <span class="tag">信纸（A4 带品牌头）</span>
+          <span class="tag">信封（DL / C5）</span>
+          <span class="tag">手提袋</span>
+          <span class="tag">宣传单页 / 折页（A4 / A5）</span>
+          <span class="tag">PPT 模板（封面 + 2-3 内页）</span>
+          <span class="tag">Word 文档模板</span>
+          <span class="tag">工作证 / 工牌</span>
+          <span class="tag">社媒头像 & 封面</span>
+          <span class="tag">邮件签名</span>
+          <span class="tag">产品标签 / 贴纸</span>
+          <span class="tag">文化墙 / 门头效果图</span>
+        </div>
+        <div class="note">超出 10 款的部分，按单款 ¥800 另行计费。</div>
+      </div>
+
+      <div class="block">
+        <div class="block-h"><h3>04　项目管理与沟通</h3><span class="price">¥3,000</span></div>
+        <ul class="clean">
+          <li>专属对接：指定固定负责人，全程对接需求</li>
+          <li>进度把控：制定排期表，按时推进各环节交付</li>
+          <li>修改统筹：收集反馈意见，整合后统一进行修改，避免零碎反复</li>
+          <li>最终交付：整理所有源文件（AI / EPS / PSD / PDF 等），协助归档</li>
+          <li>使用培训：提供文件使用说明、解答后续落地疑问</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 四、服务边界说明 -->
+    <section>
+      <div class="sec-h"><span class="no">四</span><h2>服务边界说明</h2></div>
+      <ul class="clean boundary">
+        <li>不含品牌命名、Slogan、品牌故事撰写</li>
+        <li>不含商业摄影、插画定制、3D 建模</li>
+        <li>不含空间设计、包装结构工程文件</li>
+        <li>不含印刷制作及第三方采购</li>
+        <li>不含品牌策略、广告语、全年推广等深度服务</li>
+      </ul>
+    </section>
+
+    <!-- 五、付款方式 -->
+    <section>
+      <div class="sec-h"><span class="no">五</span><h2>付款方式</h2></div>
+      <div class="pay-grid">
+        <div class="pay-card">
+          <div class="stage">首付款</div>
+          <div class="pct">50%</div>
+          <div class="amt">¥15,000</div>
+          <div class="trig">合同签订后</div>
+        </div>
+        <div class="pay-card">
+          <div class="stage">中期款</div>
+          <div class="pct">30%</div>
+          <div class="amt">¥9,000</div>
+          <div class="trig">Logo 定稿后</div>
+        </div>
+        <div class="pay-card">
+          <div class="stage">尾款</div>
+          <div class="pct">20%</div>
+          <div class="amt">¥6,000</div>
+          <div class="trig">全部交付验收后</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">© AVATR Brand · 品牌视觉基础建设项目报价单</div>
+  </div>
+</body>
+</html>
