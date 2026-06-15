@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>品牌 SOP · 流程库</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --lime: #B4D719; --ink: #1E2F2B; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh; color: #fff;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(180,215,25,0.25), transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(70,120,255,0.28), transparent 50%),
+      linear-gradient(135deg, #0f1c1a 0%, #1E2F2B 55%, #14201d 100%);
+    display: flex; align-items: center; justify-content: center; padding: 48px 20px;
+  }
+  .wrap { width: 100%; max-width: 880px; }
+  .head { text-align: center; margin-bottom: 44px; }
+  .badge {
+    display: inline-block; font-size: 13px; letter-spacing: 2px; padding: 6px 16px;
+    border-radius: 999px; background: rgba(180,215,25,0.18);
+    border: 1px solid rgba(180,215,25,0.4); color: var(--lime); margin-bottom: 18px;
+  }
+  .head h1 { font-size: 38px; font-weight: 700; letter-spacing: 1px; }
+  .head p { margin-top: 12px; color: rgba(255,255,255,0.6); font-size: 15px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+  .card {
+    display: block; text-decoration: none; color: inherit; padding: 30px 28px;
+    border-radius: 22px; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover {
+    transform: translateY(-6px); border-color: rgba(180,215,25,0.55);
+    box-shadow: 0 22px 60px rgba(0,0,0,0.5);
+  }
+  .card .num { font-size: 13px; color: var(--lime); letter-spacing: 2px; margin-bottom: 14px; }
+  .card h2 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .card p { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.65); }
+  .card .go {
+    margin-top: 20px; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; color: var(--lime); font-weight: 600;
+  }
+  .foot { text-align: center; margin-top: 40px; color: rgba(255,255,255,0.4); font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <span class="badge">BRAND SOP LIBRARY</span>
+      <h1>品牌 SOP · 流程库</h1>
+      <p>品牌相关标准作业流程合集 · 玻璃拟态演示</p>
+    </div>
+    <div class="grid">
+      <a class="card" href="decks/brand-strategy-sop.html">
+        <div class="num">SOP 01</div>
+        <h2>品牌全案 SOP</h2>
+        <p>从品牌定位、价值主张到品牌叙事的全流程方法论与落地步骤。</p>
+        <span class="go">查看演示 →</span>
+      </a>
+      <a class="card" href="decks/brand-visual-sop.html">
+        <div class="num">SOP 02</div>
+        <h2>品牌视觉搭建 / 升级 SOP</h2>
+        <p>视觉识别系统从规划、设计到应用落地与升级的标准流程。</p>
+        <span class="go">查看演示 →</span>
+      </a>
+    </div>
+    <div class="foot">© AVATR Brand · 持续补充更多品牌 SOP</div>
+  </div>
+</body>
+</html>

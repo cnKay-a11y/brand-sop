@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>品牌视觉搭建 / 升级 SOP · 玻璃拟态</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  :root { --accent:#6ee0c8; --accent2:#7db4ff; --ink:#eef9f6; --sub:#b6d4cd; }
+  html,body { height:100%; }
+  body {
+    font-family:-apple-system,"PingFang SC","Segoe UI",Roboto,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 16% 20%, #1f6b62 0%, transparent 46%),
+      radial-gradient(circle at 84% 80%, #234f8a 0%, transparent 52%),
+      linear-gradient(135deg,#08201c 0%, #103a44 45%, #11223f 100%);
+    background-attachment:fixed; overflow:hidden;
+  }
+  body::before{ content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(ellipse 55% 40% at 28% 22%, rgba(110,224,200,.20), transparent 60%),
+      radial-gradient(ellipse 50% 55% at 76% 78%, rgba(110,160,230,.20), transparent 60%); }
+  .deck { position:relative; z-index:1; width:100vw; height:100vh; }
+  .slide { position:absolute; inset:0; display:none; padding:6vh 8vw; flex-direction:column; justify-content:center; animation:fade .5s ease; }
+  .slide.active { display:flex; }
+  @keyframes fade { from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;} }
+  .glass {
+    background:rgba(255,255,255,.06); border:1px solid rgba(150,220,205,.25); border-radius:26px;
+    backdrop-filter:blur(20px) saturate(140%); -webkit-backdrop-filter:blur(20px) saturate(140%);
+    box-shadow:0 18px 50px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  .kicker { font-size:14px; letter-spacing:4px; color:var(--accent); text-transform:uppercase; margin-bottom:18px; }
+  h1 { font-size:62px; line-height:1.1; font-weight:800; letter-spacing:-1px; }
+  h1 .grad { background:linear-gradient(120deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lead { font-size:20px; color:var(--sub); margin-top:22px; max-width:700px; line-height:1.6; }
+  .tag-row { display:flex; gap:10px; margin-top:34px; flex-wrap:wrap; }
+  .pill { padding:10px 16px; border-radius:30px; font-size:13.5px; color:var(--ink); background:rgba(110,224,200,.12); border:1px solid rgba(110,224,200,.3); }
+  h2 { font-size:40px; font-weight:750; margin-bottom:6px; }
+  h2 .num { color:var(--accent); font-weight:800; margin-right:14px; }
+  .stage-meta { color:var(--accent2); font-size:16px; letter-spacing:2px; margin-bottom:30px; }
+  .cards { display:grid; gap:20px; }
+  .cards.c2{grid-template-columns:repeat(2,1fr);} .cards.c3{grid-template-columns:repeat(3,1fr);} .cards.c4{grid-template-columns:repeat(4,1fr);}
+  .cards.c5{grid-template-columns:repeat(5,1fr);}
+  .card { padding:26px; } .card .ic{font-size:30px;margin-bottom:14px;} .card h3{font-size:18px;margin-bottom:12px;}
+  .card ul{list-style:none;} .card li{font-size:13.5px;color:var(--sub);line-height:1.7;padding-left:16px;position:relative;}
+  .card li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .flow{display:flex;gap:12px;align-items:stretch;}
+  .flow .step{flex:1;padding:20px 14px;text-align:center;}
+  .flow .step .big{font-size:26px;font-weight:800;color:var(--accent);}
+  .flow .step .nm{font-size:16px;font-weight:650;margin:8px 0 4px;}
+  .flow .step .ds{font-size:12px;color:var(--sub);line-height:1.5;}
+  .flow .arrow{align-self:center;color:var(--accent2);font-size:20px;}
+  .swatches{display:flex;gap:16px;margin-top:8px;}
+  .sw{width:120px;height:120px;border-radius:20px;display:flex;align-items:flex-end;padding:12px;font-size:12px;font-weight:600;}
+  .palette{display:flex;gap:24px;align-items:center;flex-wrap:wrap;}
+  .foot{position:fixed;bottom:24px;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:0 40px;z-index:5;font-size:13px;color:var(--sub);}
+  .nav-btns{display:flex;gap:10px;}
+  .nav-btns button{width:40px;height:40px;border-radius:50%;cursor:pointer;color:var(--ink);font-size:18px;background:rgba(255,255,255,.08);border:1px solid rgba(150,220,205,.3);transition:.2s;}
+  .nav-btns button:hover{background:rgba(110,224,200,.25);}
+  .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:6;transition:width .3s;}
+  .brandtag{font-weight:700;color:var(--ink);}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 Cover -->
+  <section class="slide active">
+    <div class="kicker">BRAND VISUAL SOP · 0 → 1</div>
+    <h1>品牌视觉<span class="grad">搭建 / 升级 SOP</span></h1>
+    <p class="lead">把文字策略翻译成可识别、可延展、可管理的视觉系统 —— 从情绪板到 VI 手册，五阶段建立品牌的「识别基因」。</p>
+    <div class="tag-row">
+      <span class="pill">① 视觉策略 · 翻译官</span>
+      <span class="pill">② 基础系统 · 地基</span>
+      <span class="pill">③ 辅助延展 · 血肉</span>
+      <span class="pill">④ 应用系统 · 皮肤</span>
+      <span class="pill">⑤ 视觉管理 · 宪法</span>
+    </div>
+  </section>
+
+  <!-- 2 Overview -->
+  <section class="slide">
+    <h2><span class="num">00</span>视觉五阶段总览</h2>
+    <div class="stage-meta">FIVE STAGES · 从关键词到全触点落地</div>
+    <div class="flow">
+      <div class="step glass"><div class="big">01</div><div class="nm">视觉策略</div><div class="ds">翻译官<br>文字转视觉关键词</div></div>
+      <div class="arrow">→</div>
+      <div class="step glass"><div class="big">02</div><div class="nm">基础系统</div><div class="ds">地基<br>Logo / 色彩 / 字体</div></div>
+      <div class="arrow">→</div>
+      <div class="step glass"><div class="big">03</div><div class="nm">辅助延展</div><div class="ds">血肉<br>图形 / IP / 动效</div></div>
+      <div class="arrow">→</div>
+      <div class="step glass"><div class="big">04</div><div class="nm">应用系统</div><div class="ds">皮肤<br>全触点物料</div></div>
+      <div class="arrow">→</div>
+      <div class="step glass"><div class="big">05</div><div class="nm">视觉管理</div><div class="ds">宪法<br>VI 手册与审计</div></div>
+    </div>
+  </section>
+
+  <!-- 3 Stage 1 -->
+  <section class="slide">
+    <h2><span class="num">01</span>视觉策略推导</h2>
+    <div class="stage-meta">翻译官 · 将文字策略转化为视觉关键词</div>
+    <div class="cards c3">
+      <div class="card glass"><div class="ic">🎨</div><h3>1.1 情绪板制作</h3>
+        <ul><li>收集图片 / 色彩 / 材质 / 字体参考</li><li>示例：高饱和色块 + 3D 几何 + 毛绒 = 玩具般活力</li></ul></div>
+      <div class="card glass"><div class="ic">🔑</div><h3>1.2 视觉关键词定义</h3>
+        <ul><li>提炼 3–4 个核心视觉形容词</li><li>未来感 / 趣味性 / 高饱和 / 实验性</li><li>明确「要什么」与负面清单</li></ul></div>
+      <div class="card glass"><div class="ic">⭐</div><h3>1.3 超级符号构思</h3>
+        <ul><li>寻找承载品牌精神的图形载体</li><li>如蔚来「天空与道路」、胶囊与方块</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 4 Stage 2 -->
+  <section class="slide">
+    <h2><span class="num">02</span>基础系统设计</h2>
+    <div class="stage-meta">地基 · 建立品牌最核心的识别基因</div>
+    <div class="cards c3">
+      <div class="card glass"><div class="ic">🔷</div><h3>2.1 标志设计</h3>
+        <ul><li>图形标：极简 / 易识别 / 可缩放</li><li>字标：专用字体或标准字组合</li><li>组合：横竖版 / 黑白稿 / 反白稿</li></ul></div>
+      <div class="card glass"><div class="ic">🌈</div><h3>2.2 色彩体系</h3>
+        <ul><li>主色：品牌第一识别色</li><li>辅助色：区分层级 / 强调重点</li><li>背景 / 中性色：阅读舒适度</li></ul></div>
+      <div class="card glass"><div class="ic">🔠</div><h3>2.3 字体规范</h3>
+        <ul><li>标题字：有性格、吸睛</li><li>正文字：易读、适合长阅读</li><li>数字 / 代码：行业专用字体</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 5 Stage 3 -->
+  <section class="slide">
+    <h2><span class="num">03</span>辅助图形与 IP 延展</h2>
+    <div class="stage-meta">血肉 · 丰富视觉层次，增加品牌亲和力</div>
+    <div class="cards c3">
+      <div class="card glass"><div class="ic">🧩</div><h3>3.1 辅助图形开发</h3>
+        <ul><li>从 Logo 提取元素裂变 / 重组</li><li>设计专属纹样 / 底纹 / 边框</li></ul></div>
+      <div class="card glass"><div class="ic">🧸</div><h3>3.2 IP / 吉祥物（可选）</h3>
+        <ul><li>具象化角色（如蓝色毛绒球）</li><li>三视图 / 表情包 / 动作库</li></ul></div>
+      <div class="card glass"><div class="ic">🎞️</div><h3>3.3 动态视觉规范</h3>
+        <ul><li>Logo 演绎动画</li><li>转场特效 / Loading 动画</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 6 Stage 4 -->
+  <section class="slide">
+    <h2><span class="num">04</span>应用系统设计</h2>
+    <div class="stage-meta">皮肤 · 让品牌出现在所有用户接触点</div>
+    <div class="cards c5">
+      <div class="card glass"><div class="ic">💼</div><h3>4.1 办公事务</h3><ul><li>名片 / 信纸</li><li>PPT / 邮件签名</li><li>工牌</li></ul></div>
+      <div class="card glass"><div class="ic">🏬</div><h3>4.2 环境导视</h3><ul><li>门头 / 前台墙</li><li>指示牌 / 贴膜</li><li>沉浸式零售</li></ul></div>
+      <div class="card glass"><div class="ic">📦</div><h3>4.3 产品包装</h3><ul><li>结构 / 材质</li><li>开箱体验</li><li>丝印 / 铭牌 / UI</li></ul></div>
+      <div class="card glass"><div class="ic">📱</div><h3>4.4 数字媒体</h3><ul><li>App / 网页 UI</li><li>社媒头像封面</li><li>公众号模板</li></ul></div>
+      <div class="card glass"><div class="ic">🎁</div><h3>4.5 营销物料</h3><ul><li>海报 / 画册</li><li>展架</li><li>周边礼品</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 7 Stage 5 -->
+  <section class="slide">
+    <h2><span class="num">05</span>视觉管理与培训</h2>
+    <div class="stage-meta">宪法 · 确保品牌视觉在执行中不走样</div>
+    <div class="cards c3">
+      <div class="card glass"><div class="ic">📘</div><h3>5.1 编制 VI 手册</h3>
+        <ul><li>规范 + 错误示范 + 应用场景图</li><li>源文件交付清单</li></ul></div>
+      <div class="card glass"><div class="ic">🎓</div><h3>5.2 宣贯与培训</h3>
+        <ul><li>向内部讲解规范背后逻辑</li><li>向供应商交底工艺要求</li></ul></div>
+      <div class="card glass"><div class="ic">🔍</div><h3>5.3 定期审计迭代</h3>
+        <ul><li>每半年 / 一年检查执行情况</li><li>建立评估与迭代机制</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 8 Brand House for visual -->
+  <section class="slide">
+    <h2><span class="num">06</span>品牌屋 · 映射视觉系统</h2>
+    <div class="stage-meta">BRAND HOUSE × VISUAL · 结构指导视觉落地</div>
+    <div class="cards c4">
+      <div class="card glass"><div class="ic">🏠</div><h3>屋顶 · 调性</h3><ul><li>品牌调性与情感连接</li><li>对应阶段一 视觉策略</li></ul></div>
+      <div class="card glass"><div class="ic">🏛</div><h3>支柱 · 核心</h3><ul><li>Logo / 色彩 / 字体</li><li>对应阶段二 基础系统</li></ul></div>
+      <div class="card glass"><div class="ic">🧱</div><h3>墙壁 · 延展</h3><ul><li>辅助图形与应用规范</li><li>对应阶段三、四</li></ul></div>
+      <div class="card glass"><div class="ic">⛰</div><h3>地基 · 标准</h3><ul><li>品牌识别标准</li><li>对应阶段五 管理培训</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 9 Closing -->
+  <section class="slide">
+    <div class="kicker">UPGRADE PRINCIPLE</div>
+    <h1>视觉升级 <span class="grad">三进化</span></h1>
+    <div class="cards c3" style="margin-top:40px;">
+      <div class="card glass"><div class="ic">➕</div><h3>增加动态层</h3><ul><li>叠加「动态视觉」「数字体验」维度</li></ul></div>
+      <div class="card glass"><div class="ic">🛠️</div><h3>强化执行层</h3><ul><li>结合 SOP，落实执行标准与工具</li></ul></div>
+      <div class="card glass"><div class="ic">🖐️</div><h3>五感体验扩展</h3><ul><li>从视觉导向到多感官体验管理</li></ul></div>
+    </div>
+    <p class="lead" style="margin-top:34px;">升级 = 在原识别基因上做有约束的进化：先稳地基（Logo/色彩/字体），再演进墙壁（应用与动态），最后用 VI 宪法保证不走样。</p>
+  </section>
+
+</div>
+
+<div class="foot">
+  <div class="brandtag">品牌视觉搭建 / 升级 SOP</div>
+  <div>← / → 翻页 · <span id="counter">1 / 9</span></div>
+  <div class="nav-btns"><button onclick="go(-1)">‹</button><button onclick="go(1)">›</button></div>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function render(){
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('counter').textContent=`${i+1} / ${slides.length}`;
+    document.getElementById('prog').style.width=`${(i+1)/slides.length*100}%`;
+  }
+  function go(d){ i=Math.min(slides.length-1,Math.max(0,i+d)); render(); }
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' ') go(1);
+    if(e.key==='ArrowLeft') go(-1);
+  });
+  render();
+</script>
+</body>
+</html>

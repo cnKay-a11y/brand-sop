@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>品牌全案 SOP · 玻璃拟态</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  :root {
+    --accent:#7db4ff; --accent2:#b78cff; --ink:#eef4ff; --sub:#b9cbe6;
+  }
+  html,body { height:100%; }
+  body {
+    font-family:-apple-system,"PingFang SC","Segoe UI",Roboto,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 18% 22%, #2a4f8a 0%, transparent 46%),
+      radial-gradient(circle at 82% 78%, #5b2f8a 0%, transparent 50%),
+      linear-gradient(135deg,#0a1426 0%, #142a4d 45%, #1a1438 100%);
+    background-attachment:fixed;
+    overflow:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(ellipse 55% 40% at 30% 20%, rgba(110,160,230,.22), transparent 60%),
+      radial-gradient(ellipse 50% 55% at 75% 80%, rgba(150,110,220,.22), transparent 60%);
+  }
+  .deck { position:relative; z-index:1; width:100vw; height:100vh; }
+  .slide {
+    position:absolute; inset:0; display:none;
+    padding:6vh 8vw; flex-direction:column; justify-content:center;
+    animation:fade .5s ease;
+  }
+  .slide.active { display:flex; }
+  @keyframes fade { from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;} }
+
+  .glass {
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(160,195,240,.25);
+    border-radius:26px;
+    backdrop-filter:blur(20px) saturate(140%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);
+    box-shadow:0 18px 50px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.12);
+  }
+
+  .kicker { font-size:14px; letter-spacing:4px; color:var(--accent); text-transform:uppercase; margin-bottom:18px; }
+  h1 { font-size:64px; line-height:1.1; font-weight:800; letter-spacing:-1px; }
+  h1 .grad { background:linear-gradient(120deg,var(--accent),var(--accent2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .lead { font-size:20px; color:var(--sub); margin-top:22px; max-width:680px; line-height:1.6; }
+  .tag-row { display:flex; gap:12px; margin-top:34px; flex-wrap:wrap; }
+  .pill { padding:10px 18px; border-radius:30px; font-size:14px; color:var(--ink); background:rgba(125,180,255,.12); border:1px solid rgba(125,180,255,.3); }
+
+  h2 { font-size:40px; font-weight:750; margin-bottom:6px; }
+  h2 .num { color:var(--accent); font-weight:800; margin-right:14px; }
+  .stage-meta { color:var(--accent2); font-size:16px; letter-spacing:2px; margin-bottom:30px; }
+
+  .cards { display:grid; gap:20px; }
+  .cards.c2 { grid-template-columns:repeat(2,1fr); }
+  .cards.c3 { grid-template-columns:repeat(3,1fr); }
+  .cards.c4 { grid-template-columns:repeat(4,1fr); }
+  .card { padding:26px; }
+  .card .ic { font-size:30px; margin-bottom:14px; }
+  .card h3 { font-size:19px; margin-bottom:12px; }
+  .card ul { list-style:none; }
+  .card li { font-size:14px; color:var(--sub); line-height:1.7; padding-left:16px; position:relative; }
+  .card li::before { content:""; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+
+  .flow { display:flex; gap:16px; align-items:stretch; }
+  .flow .step { flex:1; padding:24px; text-align:center; position:relative; }
+  .flow .step .big { font-size:30px; font-weight:800; color:var(--accent); }
+  .flow .step .nm { font-size:18px; font-weight:650; margin:10px 0 6px; }
+  .flow .step .ds { font-size:13px; color:var(--sub); line-height:1.55; }
+  .flow .arrow { align-self:center; color:var(--accent2); font-size:24px; }
+
+  .house { display:flex; flex-direction:column; gap:12px; max-width:760px; margin-top:8px; }
+  .house .row { display:flex; align-items:center; gap:18px; padding:18px 24px; }
+  .house .lab { font-size:18px; font-weight:700; min-width:120px; color:var(--accent); }
+  .house .txt { font-size:14px; color:var(--sub); line-height:1.6; }
+
+  /* footer / nav */
+  .foot { position:fixed; bottom:24px; left:0; right:0; display:flex; justify-content:space-between; align-items:center; padding:0 40px; z-index:5; font-size:13px; color:var(--sub); }
+  .nav-btns { display:flex; gap:10px; }
+  .nav-btns button { width:40px; height:40px; border-radius:50%; cursor:pointer; color:var(--ink); font-size:18px; background:rgba(255,255,255,.08); border:1px solid rgba(160,195,240,.3); transition:.2s; }
+  .nav-btns button:hover { background:rgba(125,180,255,.25); }
+  .progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:6; transition:width .3s; }
+  .brandtag { font-weight:700; color:var(--ink); }
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 Cover -->
+  <section class="slide active">
+    <div class="kicker">BRAND MASTER SOP</div>
+    <h1>品牌全案<span class="grad">策划 SOP</span></h1>
+    <p class="lead">从品牌诊断到营销落地的标准化作业流程 —— 用系统方法把模糊的品牌愿景，翻译成可执行、可复用、可审计的全链路打法。</p>
+    <div class="tag-row">
+      <span class="pill">① 诊断挖掘 · 听诊器</span>
+      <span class="pill">② 顶层定位 · 定海神针</span>
+      <span class="pill">③ 话语体系 · 扩音器</span>
+      <span class="pill">④ 营销策略 · 作战图</span>
+    </div>
+  </section>
+
+  <!-- 2 Overview -->
+  <section class="slide">
+    <h2><span class="num">00</span>全案四阶段总览</h2>
+    <div class="stage-meta">FOUR STAGES · 从洞察到落地的闭环</div>
+    <div class="flow">
+      <div class="step glass"><div class="big">01</div><div class="nm">品牌诊断</div><div class="ds">听诊器<br>找机会点与痛点</div></div>
+      <div class="arrow">→</div>
+      <div class="step glass"><div class="big">02</div><div class="nm">顶层定位</div><div class="ds">定海神针<br>一句话讲清价值</div></div>
+      <div class="arrow">→</div>
+      <div class="step glass"><div class="big">03</div><div class="nm">话语体系</div><div class="ds">扩音器<br>翻译成用户语言</div></div>
+      <div class="arrow">→</div>
+      <div class="step glass"><div class="big">04</div><div class="nm">营销策略</div><div class="ds">作战图<br>声量转化为销量</div></div>
+    </div>
+  </section>
+
+  <!-- 3 Stage 1 -->
+  <section class="slide">
+    <h2><span class="num">01</span>品牌诊断与挖掘</h2>
+    <div class="stage-meta">听诊器 · 通过系统性调研，找到市场机会点和品牌痛点</div>
+    <div class="cards c3">
+      <div class="card glass"><div class="ic">🔭</div><h3>1.1 市场环境扫描</h3>
+        <ul><li>宏观 PEST 分析</li><li>行业规模与 3–5 年趋势</li><li>3–5 个竞品 SWOT / 价格带 / 卖点</li></ul></div>
+      <div class="card glass"><div class="ic">📦</div><h3>1.2 内部资产盘点</h3>
+        <ul><li>品牌历史与关键里程碑</li><li>产品力：技术 / 供应链 / 产品线</li><li>现有认知与舆情分析</li></ul></div>
+      <div class="card glass"><div class="ic">🎯</div><h3>1.3 用户画像描绘</h3>
+        <ul><li>基础属性：年龄 / 地域 / 职业 / 收入</li><li>心理图谱：价值观 / 痛点 / 爽点 / 痒点</li><li>消费场景：时间 / 地点 / 情绪</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 4 Stage 2 -->
+  <section class="slide">
+    <h2><span class="num">02</span>品牌顶层定位</h2>
+    <div class="stage-meta">定海神针 · 用一句话讲清核心价值，确立差异化生态位</div>
+    <div class="cards c3">
+      <div class="card glass"><div class="ic">💎</div><h3>2.1 核心价值提炼</h3>
+        <ul><li>功能性价值：解决具体问题</li><li>情感性价值：心理满足</li><li>社会性价值：群体身份</li></ul></div>
+      <div class="card glass"><div class="ic">📌</div><h3>2.2 品牌定位陈述</h3>
+        <ul><li>目标人群 + 核心需求</li><li>独特卖点 + 信任背书</li><li>公式：为「人群」提供「卖点」，因为「愿景」</li></ul></div>
+      <div class="card glass"><div class="ic">🧬</div><h3>2.3 品牌个性设定</h3>
+        <ul><li>人格化：极客 / 暖男 / 叛逆者 / 智者</li><li>调性关键词：鲜明 · 年轻 · 富有节奏</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 5 Stage 3 -->
+  <section class="slide">
+    <h2><span class="num">03</span>品牌话语体系构建</h2>
+    <div class="stage-meta">扩音器 · 把定位翻译成用户听得懂、记得住的语言</div>
+    <div class="cards c3">
+      <div class="card glass"><div class="ic">🔤</div><h3>3.1 命名与 Slogan</h3>
+        <ul><li>品牌名：易读 / 易记 / 可注册</li><li>主 Slogan：传递核心价值</li><li>副 Slogan：营销行动口号</li></ul></div>
+      <div class="card glass"><div class="ic">📖</div><h3>3.2 品牌故事</h3>
+        <ul><li>起源故事：为什么创立</li><li>产品故事：攻克什么难关</li><li>用户故事：谁因此改变生活</li></ul></div>
+      <div class="card glass"><div class="ic">🗣️</div><h3>3.3 传播话术规范</h3>
+        <ul><li>对外官方口径</li><li>客服话术</li><li>社媒文案风格指南</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 6 Stage 4 -->
+  <section class="slide">
+    <h2><span class="num">04</span>品牌营销策略规划</h2>
+    <div class="stage-meta">作战图 · 制定落地打法，确保声量转化为销量</div>
+    <div class="cards c4">
+      <div class="card glass"><div class="ic">🚀</div><h3>4.1 产品策略</h3>
+        <ul><li>爆品打造</li><li>引流 / 利润 / 形象款矩阵</li></ul></div>
+      <div class="card glass"><div class="ic">💰</div><h3>4.2 价格策略</h3>
+        <ul><li>定价逻辑</li><li>促销机制</li></ul></div>
+      <div class="card glass"><div class="ic">🛒</div><h3>4.3 渠道策略</h3>
+        <ul><li>线上：天猫 / 抖音 / 私域</li><li>线下：门店 / 快闪 / 展会</li></ul></div>
+      <div class="card glass"><div class="ic">📅</div><h3>4.4 推广节奏</h3>
+        <ul><li>预热：悬念 + 种子用户</li><li>爆发：发布会 + KOL</li><li>长尾：口碑 + 会员运营</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 7 Brand House -->
+  <section class="slide">
+    <h2><span class="num">05</span>品牌屋模型 · 融入全案</h2>
+    <div class="stage-meta">BRAND HOUSE · 战略架构指导，SOP 流程落地</div>
+    <div class="house">
+      <div class="row glass"><div class="lab">🏠 屋顶</div><div class="txt">品牌愿景与使命 —— 对应 <b>阶段二 顶层定位</b>，指导整体方向</div></div>
+      <div class="row glass"><div class="lab">🏛 支柱</div><div class="txt">核心价值主张 —— 对应 <b>阶段二 核心价值提炼</b>，确立核心识别</div></div>
+      <div class="row glass"><div class="lab">🧱 墙壁</div><div class="txt">品牌话语体系 —— 对应 <b>阶段三 话语体系构建</b>，构建完整系统</div></div>
+      <div class="row glass"><div class="lab">⛰ 地基</div><div class="txt">市场洞察与用户理解 —— 对应 <b>阶段一 诊断挖掘</b>，基于真实洞察</div></div>
+    </div>
+  </section>
+
+  <!-- 8 Closing -->
+  <section class="slide">
+    <div class="kicker">EXECUTION PRINCIPLE</div>
+    <h1>战略<span class="grad">落地</span>三统一</h1>
+    <div class="cards c3" style="margin-top:40px;">
+      <div class="card glass"><div class="ic">🎯</div><h3>战略与执行统一</h3><ul><li>品牌战略有效落地，不停在 PPT</li></ul></div>
+      <div class="card glass"><div class="ic">⚖️</div><h3>结构与细节平衡</h3><ul><li>既有宏观架构，又有执行标准</li></ul></div>
+      <div class="card glass"><div class="ic">🔄</div><h3>传统与现代融合</h3><ul><li>经典模型 + 数字化适应性</li></ul></div>
+    </div>
+    <p class="lead" style="margin-top:34px;">先搭品牌屋骨架 → 填 SOP 执行细节 → 增加动态评估 → 数字化扩展全触点。</p>
+  </section>
+
+</div>
+
+<div class="foot">
+  <div class="brandtag">品牌全案 SOP</div>
+  <div>← / → 翻页 · <span id="counter">1 / 8</span></div>
+  <div class="nav-btns"><button onclick="go(-1)">‹</button><button onclick="go(1)">›</button></div>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  function render(){
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    document.getElementById('counter').textContent=`${i+1} / ${slides.length}`;
+    document.getElementById('prog').style.width=`${(i+1)/slides.length*100}%`;
+  }
+  function go(d){ i=Math.min(slides.length-1,Math.max(0,i+d)); render(); }
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' ') go(1);
+    if(e.key==='ArrowLeft') go(-1);
+  });
+  render();
+</script>
+</body>
+</html>
