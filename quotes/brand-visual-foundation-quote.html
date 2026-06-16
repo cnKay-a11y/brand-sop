@@ -5,92 +5,103 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>品牌视觉基础建设 · 项目报价单</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
   :root {
-    --lime: #B4D719;
-    --ink: #1E2F2B;
-    --line: rgba(255,255,255,0.12);
+    --accent: #7db4ff;
+    --accent2: #b78cff;
+    --ink: #eef4ff;
+    --sub: #b9cbe6;
+    --line: rgba(160,195,240,0.22);
     --glass: rgba(255,255,255,0.06);
-    --txt: rgba(255,255,255,0.92);
-    --muted: rgba(255,255,255,0.58);
   }
   html { scroll-behavior: smooth; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, sans-serif;
-    color: var(--txt);
+    color: var(--ink);
     line-height: 1.6;
     background:
-      radial-gradient(circle at 12% 10%, rgba(180,215,25,0.18), transparent 42%),
-      radial-gradient(circle at 88% 85%, rgba(70,120,255,0.20), transparent 48%),
-      linear-gradient(135deg, #0f1c1a 0%, #1E2F2B 55%, #14201d 100%);
+      radial-gradient(circle at 18% 22%, #2a4f8a 0%, transparent 46%),
+      radial-gradient(circle at 82% 78%, #5b2f8a 0%, transparent 50%),
+      linear-gradient(135deg, #0a1426 0%, #142a4d 45%, #1a1438 100%);
     background-attachment: fixed;
     min-height: 100vh;
     padding: 56px 20px 90px;
   }
-  .page { max-width: 920px; margin: 0 auto; }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 55% 40% at 30% 20%, rgba(110,160,230,.18), transparent 60%),
+      radial-gradient(ellipse 50% 55% at 75% 80%, rgba(150,110,220,.18), transparent 60%);
+  }
+  .page { position: relative; z-index: 1; max-width: 920px; margin: 0 auto; }
 
-  /* header */
   .topbar {
     display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 40px;
+    margin-bottom: 40px; flex-wrap: wrap; gap: 12px;
   }
   .back {
-    text-decoration: none; color: var(--muted); font-size: 14px;
+    text-decoration: none; color: var(--sub); font-size: 14px;
     display: inline-flex; align-items: center; gap: 6px;
     padding: 8px 16px; border-radius: 999px;
     border: 1px solid var(--line); background: var(--glass);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    transition: color .2s, border-color .2s;
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    transition: color .2s, border-color .2s, background .2s;
   }
-  .back:hover { color: var(--lime); border-color: rgba(180,215,25,0.45); }
-  .confid { font-size: 12px; letter-spacing: 1px; color: var(--muted); }
+  .back:hover { color: var(--accent); border-color: rgba(125,180,255,0.45); background: rgba(125,180,255,0.1); }
+  .confid { font-size: 12px; letter-spacing: 1px; color: var(--sub); }
+
+  .glass {
+    background: var(--glass);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.1);
+  }
 
   .hero {
-    border-radius: 26px; padding: 44px 40px;
-    background: var(--glass); border: 1px solid var(--line);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 18px 50px rgba(0,0,0,0.35);
-    margin-bottom: 30px;
+    border-radius: 26px; padding: 44px 40px; margin-bottom: 30px;
   }
   .hero .badge {
     display: inline-block; font-size: 12px; letter-spacing: 2px;
     padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
-    background: rgba(180,215,25,0.16); border: 1px solid rgba(180,215,25,0.38);
-    color: var(--lime);
+    background: rgba(125,180,255,0.12); border: 1px solid rgba(125,180,255,0.32);
+    color: var(--accent);
   }
-  .hero h1 { font-size: 36px; font-weight: 700; letter-spacing: 0.5px; }
-  .hero .en { color: var(--muted); font-size: 15px; margin-top: 8px; letter-spacing: 1px; }
+  .hero h1 {
+    font-size: 36px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .en { color: var(--sub); font-size: 15px; margin-top: 8px; letter-spacing: 1px; }
   .meta {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 18px; margin-top: 30px; padding-top: 26px; border-top: 1px solid var(--line);
   }
-  .meta .k { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .meta .k { font-size: 12px; color: var(--sub); margin-bottom: 6px; }
   .meta .v { font-size: 15px; font-weight: 600; }
-  .meta .v.lime { color: var(--lime); }
+  .meta .v.accent { color: var(--accent); font-size: 18px; }
 
-  /* sections */
   section {
-    border-radius: 24px; padding: 34px 34px; margin-bottom: 26px;
-    background: var(--glass); border: 1px solid var(--line);
-    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.28);
+    border-radius: 24px; padding: 34px; margin-bottom: 26px;
   }
   .sec-h { display: flex; align-items: baseline; gap: 12px; margin-bottom: 22px; }
-  .sec-h .no { color: var(--lime); font-size: 15px; font-weight: 700; }
-  .sec-h h2 { font-size: 22px; font-weight: 700; }
+  .sec-h .no { color: var(--accent); font-size: 15px; font-weight: 700; }
+  .sec-h h2 { font-size: 22px; font-weight: 750; }
 
-  /* table */
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { text-align: left; padding: 14px 12px; vertical-align: top; }
   thead th {
-    font-size: 12px; letter-spacing: 1px; color: var(--muted);
+    font-size: 12px; letter-spacing: 1px; color: var(--sub);
     border-bottom: 1px solid var(--line); font-weight: 600;
   }
-  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.07); }
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.06); }
   tbody tr:last-child { border-bottom: none; }
-  td .desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
-  .price { color: var(--lime); font-weight: 700; white-space: nowrap; }
-  .seq { color: var(--muted); font-variant-numeric: tabular-nums; }
+  td .desc { color: var(--sub); font-size: 13px; margin-top: 4px; }
+  .price { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .seq { color: var(--sub); font-variant-numeric: tabular-nums; }
   .total-row td {
     border-top: 1px solid var(--line); padding-top: 18px;
     font-size: 16px; font-weight: 700;
@@ -98,12 +109,11 @@
   .total-row .price { font-size: 20px; }
 
   .note {
-    margin-top: 18px; font-size: 13px; color: var(--muted);
+    margin-top: 18px; font-size: 13px; color: var(--sub);
     padding: 14px 16px; border-radius: 14px;
-    background: rgba(180,215,25,0.07); border: 1px solid rgba(180,215,25,0.18);
+    background: rgba(125,180,255,0.08); border: 1px solid rgba(125,180,255,0.2);
   }
 
-  /* detail list */
   .block { margin-bottom: 26px; }
   .block:last-child { margin-bottom: 0; }
   .block-h {
@@ -114,35 +124,36 @@
   ul.clean { list-style: none; }
   ul.clean li {
     position: relative; padding-left: 20px; margin-bottom: 8px;
-    font-size: 14px; color: var(--txt);
+    font-size: 14px; color: var(--ink);
   }
   ul.clean li::before {
     content: ""; position: absolute; left: 4px; top: 9px;
-    width: 6px; height: 6px; border-radius: 50%; background: var(--lime);
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
   }
-  ul.clean li .sub { color: var(--muted); }
+  .boundary li::before { background: rgba(255,140,140,0.9); }
 
-  /* tags / boundary */
   .tags { display: flex; flex-wrap: wrap; gap: 10px; }
   .tag {
     font-size: 13px; padding: 8px 14px; border-radius: 12px;
     background: rgba(255,255,255,0.05); border: 1px solid var(--line);
-    color: var(--muted);
+    color: var(--sub);
   }
-  .boundary li::before { background: rgba(255,120,120,0.85); }
 
-  /* pay */
-  .pay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
+  .pay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
   .pay-card {
     border-radius: 18px; padding: 22px; border: 1px solid var(--line);
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.04);
   }
-  .pay-card .stage { font-size: 13px; color: var(--muted); }
-  .pay-card .pct { font-size: 30px; font-weight: 700; color: var(--lime); margin: 6px 0; }
+  .pay-card .stage { font-size: 13px; color: var(--sub); }
+  .pay-card .pct {
+    font-size: 30px; font-weight: 800; margin: 6px 0;
+    background: linear-gradient(120deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
   .pay-card .amt { font-size: 16px; font-weight: 600; }
-  .pay-card .trig { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .pay-card .trig { font-size: 12px; color: var(--sub); margin-top: 8px; }
 
-  .foot { text-align: center; color: rgba(255,255,255,0.4); font-size: 12px; margin-top: 40px; }
+  .foot { text-align: center; color: rgba(255,255,255,0.38); font-size: 12px; margin-top: 40px; }
 
   @media (max-width: 560px) {
     .hero h1 { font-size: 28px; }
@@ -158,22 +169,20 @@
       <span class="confid">机密文件 · 仅限客户查阅</span>
     </div>
 
-    <!-- HERO -->
-    <div class="hero">
+    <div class="hero glass">
       <span class="badge">PROJECT QUOTATION</span>
-      <h1>品牌视觉基础建设 · 项目报价单</h1>
+      <h1>品牌视觉基础建设 · <span class="grad">项目报价单</span></h1>
       <div class="en">Brand Visual Foundation</div>
       <div class="meta">
         <div><div class="k">项目名称</div><div class="v">品牌视觉基础建设（0→1 / 品牌升级）</div></div>
         <div><div class="k">项目周期</div><div class="v">约 4 周（视反馈效率而定）</div></div>
         <div><div class="k">报价日期</div><div class="v">2025 年 7 月</div></div>
         <div><div class="k">计价方式</div><div class="v">项目打包价（含人天成本核算）</div></div>
-        <div><div class="k">项目合计（含税）</div><div class="v lime">¥30,000</div></div>
+        <div><div class="k">项目合计（含税）</div><div class="v accent">¥30,000</div></div>
       </div>
     </div>
 
-    <!-- 一、费用总览 -->
-    <section>
+    <section class="glass">
       <div class="sec-h"><span class="no">一</span><h2>费用总览</h2></div>
       <table>
         <thead>
@@ -213,8 +222,7 @@
       <div class="note">本报价为项目打包价，包含 3 次以内常规修改，超出按实际工时另行商议。</div>
     </section>
 
-    <!-- 二、人天拆解明细 -->
-    <section>
+    <section class="glass">
       <div class="sec-h"><span class="no">二</span><h2>人天拆解明细</h2></div>
       <table>
         <thead>
@@ -232,8 +240,7 @@
       <div class="note">计价说明：1 人天 = 8 小时有效设计工时，不含等待反馈时间。</div>
     </section>
 
-    <!-- 三、服务细则与交付标准 -->
-    <section>
+    <section class="glass">
       <div class="sec-h"><span class="no">三</span><h2>服务细则与交付标准</h2></div>
 
       <div class="block">
@@ -263,7 +270,7 @@
 
       <div class="block">
         <div class="block-h"><h3>03　基础物料应用（限 10 款）</h3><span class="price">¥12,000</span></div>
-        <div class="desc" style="color:var(--muted);font-size:13px;margin-bottom:12px">可选物料范围（任选 ≤10 款）：</div>
+        <div class="desc" style="color:var(--sub);font-size:13px;margin-bottom:12px">可选物料范围（任选 ≤10 款）：</div>
         <div class="tags">
           <span class="tag">名片（双面 90×54mm）</span>
           <span class="tag">信纸（A4 带品牌头）</span>
@@ -293,8 +300,7 @@
       </div>
     </section>
 
-    <!-- 四、服务边界说明 -->
-    <section>
+    <section class="glass">
       <div class="sec-h"><span class="no">四</span><h2>服务边界说明</h2></div>
       <ul class="clean boundary">
         <li>不含品牌命名、Slogan、品牌故事撰写</li>
@@ -305,8 +311,7 @@
       </ul>
     </section>
 
-    <!-- 五、付款方式 -->
-    <section>
+    <section class="glass">
       <div class="sec-h"><span class="no">五</span><h2>付款方式</h2></div>
       <div class="pay-grid">
         <div class="pay-card">
